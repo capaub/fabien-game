@@ -5,7 +5,7 @@ const MIN_PLAYERS = 1;
 const MAX_PLAYERS = 3;
 
 // les classes jouable
-const WARRIOR = '1';
+const WARRIOR = 1;
 const WIZARD = 2;
 const PRIEST = 3;
 const THIEF = 4;

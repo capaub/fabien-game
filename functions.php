@@ -22,14 +22,17 @@ function createPlayer(string $sUsername, int $iTypeOfPlayer): array
  */
 function displayPlayers(array $players): void
 {
-    foreach ($players as $aPlayer) {
+    foreach ($players as $iKey => $aPlayer) {
         $iType = $aPlayer['type'];
         $aTypeConf = TYPE_CONF[$iType];
         $sType = $aTypeConf['name'];
 
-        echo '[ Joueur ' . $aPlayer['username'] . ' ; Type : ' . $sType . ' ; Health : ' . $aPlayer['health'] . ' ]' . PHP_EOL;
+        echo PHP_EOL;
         echo sprintf(
-            '[ Joueur : %s ; Type : %s ; Heath : %s ]' . PHP_EOL,
+            '- Player ' . ($iKey+1) . ' - ' . PHP_EOL .
+            'Name : %s ' . PHP_EOL .
+            'Type : %s ' . PHP_EOL .
+            'Heath : %s' . PHP_EOL,
             $aPlayer['username'],
             $sType,
             $aPlayer['health']
@@ -42,13 +45,15 @@ function displayPlayers(array $players): void
  * @param string $sFilename
  * @return void
  */
-function saveGame(array $players, string $sFilename): void
+function saveGame(array $players, string $sFilename = SAVE_DEFAULT_NAME): void
 {
-    $sJsonPlayers = json_encode($players);
-    file_put_contents('saves/' . $sFilename, $sJsonPlayers);
+    file_put_contents($sFilename, json_encode($players));
 }
 
-
+/**
+ * @param string $sFilename
+ * @return array
+ */
 function loadGame(string $sFilename = 'SAVE_DEFAULT_NAME'): array
 {
     $sJsonPlayer;

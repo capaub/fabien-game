@@ -29,5 +29,10 @@ const TYPE_CONF = [
     ],
 ];
 
-const NEW_GAME = 1;
-const LOAD_GAME = 2;
+const NEW_GAME=1;
+const LOAD_GAME=2;
+const SAVE_GAME=3;
+const SAVE_LOAD_GAME=4;
+const EXIT_GAME=5;
+
+const  SAVE_DEFAULT_NAME="$aPlayers[0].json";

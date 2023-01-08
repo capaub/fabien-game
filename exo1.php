@@ -1,64 +1,105 @@
 <?php
-echo '== Start ==' .PHP_EOL;
 
 require 'config.php';
 require 'functions.php';
 
-echo 'Début du programme' . PHP_EOL;
-echo '[ ' . NEW_GAME . ' ] Créer une partie' . PHP_EOL;
-echo '[ ' . LOAD_GAME . ' ] Charger une partie' . PHP_EOL;
+echo PHP_EOL;
+echo '== Start =='.PHP_EOL;
+echo PHP_EOL;
 
-switch (readline('Que veux tu faire ? ')) {
+echo ' '.NEW_GAME.' => Creat game'.PHP_EOL;
+echo ' '.LOAD_GAME.' => Load game'.PHP_EOL;
+echo PHP_EOL;
+
+$aPlayers = [];
+
+switch (readline('What do you want to do ? ')) {
     case 1:
+        echo PHP_EOL;
         do {
-            $iNbPlayers = readline('Combien de joureurs (' . MIN_PLAYERS . ' - ' . MAX_PLAYERS . ') ? ');
+            $iNbPlayers = readline('Numbers of players ('.MIN_PLAYERS.' - '.MAX_PLAYERS.') ? ');
+            echo PHP_EOL;
             $bIsValid = ctype_digit($iNbPlayers) && ($iNbPlayers <= MAX_PLAYERS) && ($iNbPlayers >= MIN_PLAYERS);
             if (!$bIsValid) {
-                echo 'Valeurs incorrect' . PHP_EOL;
+                echo PHP_EOL;
+                echo 'Incorrect value !'.PHP_EOL;
+                echo PHP_EOL;
             }
         } while (!$bIsValid);
 
         // Creation et stockage des joueurs
 
-        $aPlayers = [];
+
 
         for ($i = 0; $i < $iNbPlayers; $i++) {
-            $sUsername = readline('[Joueur ' . ($i + 1) . '] Quel est votre pseudo ? ');
-            echo 'Voici les classes disponible :' . PHP_EOL;
-            foreach (TYPE_CONF as $iKey => $aConf) {
-                echo '[ ' . $iKey . ' ] pour ' . $aConf['name'] . PHP_EOL;
-            }
+            $sUsername = readline('PLAYER '.($i + 1).' What is your name ? ');
+            echo PHP_EOL;
+            echo 'Class available :'.PHP_EOL;
+            echo PHP_EOL;
+                foreach (TYPE_CONF as $iKey => $aConf) {
+                    echo ' '.$iKey.' => '.$aConf['name'].PHP_EOL;
+                }
 
             do {
-                $iTypeOfPlayer = readline('[ ' . $sUsername . ' ] Quel est ta classe ? ');
+                echo PHP_EOL;
+                $iTypeOfPlayer = readline($sUsername.', what is your class ? ');
                 $bIsValid = array_key_exists($iTypeOfPlayer, TYPE_CONF);
                 if (!$bIsValid) {
-                    echo "La saisie n'est pas valide" . PHP_EOL;
+                    echo PHP_EOL;
+                    echo ' Incorrect value !'.PHP_EOL;
+                    echo PHP_EOL;
                 }
             } while (!$bIsValid);
             $aPlayers[] = createPlayer($sUsername, $iTypeOfPlayer);
         }
+        displayPlayers($aPlayers);
     break;
     case 2:
         $LoadGame = file_get_contents('Player.txt');
 		$aPlayers = json_decode($LoadGame, true);
-		foreach ($aPlayers as $iKey => $aPlayer){
-			$iType = $aPlayer['type'];
-			echo sprintf(
-				'[Joureur : %s ; Health : %s ; Type : %s]'. PHP_EOL,
-				$aPlayer['username'],
-				$aPlayer['health'],
-				TYPES[ $iType ]['name'],
-			);
-		}
-	break;
+        displayPlayers($aPlayers);
+        break;
+    default:
+        echo ' Incorrect value !'. PHP_EOL;
+        die;
 }
 
 //print_r($aPlayers);
 
-displayPlayers($aPlayers);
+echo PHP_EOL;
+echo 'And now... Option : '.PHP_EOL;
+echo PHP_EOL;
+echo ' '.(LOAD_GAME-1).' => CLear & load game'.PHP_EOL.
+    ' '.(SAVE_GAME-1).' => Save game & exit'.PHP_EOL.
+    ' '.(SAVE_LOAD_GAME-1).' => Save & load other'.PHP_EOL.
+    ' '.(EXIT_GAME-1).' => Exit game without saving'.PHP_EOL;
+echo PHP_EOL;
 
-
-
-echo '== End ==';
-
+switch (readline('What do you want to do ? ')) {
+    case (LOAD_GAME-1):
+        echo PHP_EOL;
+        echo PHP_EOL;
+        echo 'Loading ... ';
+        break;
+    case (SAVE_GAME-1):
+        echo PHP_EOL;
+        $sName = readline('Save Name : ');
+        //print_r($aPlayers);
+        saveGame($aPlayers, ($sName.'.txt'));
+        echo PHP_EOL;
+        echo '== End ==';
+        break;
+    case (SAVE_LOAD_GAME-1):
+        echo PHP_EOL;
+        echo PHP_EOL;
+        echo 'Loading ... ';
+        break;
+    case (EXIT_GAME-1):
+        echo PHP_EOL;
+        echo PHP_EOL;
+        echo '== End ==';
+        break;
+    default:
+        echo ' Incorrect value !'. PHP_EOL;
+        die;
+}

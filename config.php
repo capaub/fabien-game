@@ -35,4 +35,6 @@ const SAVE_GAME=3;
 const SAVE_LOAD_GAME=4;
 const EXIT_GAME=5;
 
-const  SAVE_DEFAULT_NAME="$aPlayers[0].json";
+const SAVE_DEFAULT_NAME='game';
+
+const VALID_CARAC_SAVE_NAME='#^[a-zA-Z0-9-_éàèùç]*$#';

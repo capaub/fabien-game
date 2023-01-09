@@ -11,7 +11,10 @@ echo ' '.NEW_GAME.' => Creat game'.PHP_EOL;
 echo ' '.LOAD_GAME.' => Load game'.PHP_EOL;
 echo PHP_EOL;
 
-$aPlayers = [];
+$aPlayers=[];
+$sDate=date('Ymd_gi');
+
+//echo $sDate;
 
 switch (readline('What do you want to do ? ')) {
     case 1:
@@ -83,9 +86,16 @@ switch (readline('What do you want to do ? ')) {
         break;
     case (SAVE_GAME-1):
         echo PHP_EOL;
-        $sName = readline('Save Name : ');
-        //print_r($aPlayers);
-        saveGame($aPlayers, ($sName.'.txt'));
+        do{
+        $sName=readline('Save Name : ');
+        $bIsValid=preg_match(VALID_CARAC_SAVE_NAME, $sName);
+            if(!$bIsValid){
+                echo PHP_EOL;
+                echo 'Caractère invalide'.PHP_EOL;
+                echo PHP_EOL;
+            }
+        }while (!$bIsValid);
+        saveGame($aPlayers, $sName);
         echo PHP_EOL;
         echo '== End ==';
         break;

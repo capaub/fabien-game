@@ -45,7 +45,7 @@ function displayPlayers(array $players): void
  * @param string $sFilename
  * @return void
  */
-function saveGame(array $players, string $sFilename = SAVE_DEFAULT_NAME): void
+function saveGame(array $players, string $sFilename = SAVE_DEFAULT_NAME.'.json'): void
 {
     file_put_contents($sFilename, json_encode($players));
 }
@@ -54,7 +54,7 @@ function saveGame(array $players, string $sFilename = SAVE_DEFAULT_NAME): void
  * @param string $sFilename
  * @return array
  */
-function loadGame(string $sFilename = 'SAVE_DEFAULT_NAME'): array
+function loadGame(string $sFilename = SAVE_DEFAULT_NAME.'json'): array
 {
     $sJsonPlayer;
 }

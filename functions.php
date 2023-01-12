@@ -57,7 +57,7 @@ function healing(array &$players, int $value): void
  * @param string $sFilename
  * @return void
  */
-function saveGame(array $players, string $sFilename = SAVE_DEFAULT_NAME.'.json'): void
+function saveGame(array $players, string $sFilename = SAVE_DEFAULT_NAME): void
 {
     file_put_contents(SAVE_DIR.DIRECTORY_SEPARATOR.$sFilename, json_encode($players));
 }
@@ -66,13 +66,12 @@ function saveGame(array $players, string $sFilename = SAVE_DEFAULT_NAME.'.json')
  * @param string $sFilename
  * @return array
  */
-<<<<<<< HEAD
 function loadGame(string $sFilename): array
 {
     $sFilepath=$sFilename;
 //    if (!file_exists($sFilepath)) {
-  //      return [];
-   // }
+    //      return [];
+    // }
 
     $sContent = file_get_contents($sFilepath);
 
@@ -87,9 +86,3 @@ function listGames(): array
 {
     return glob(SAVE_DIR . DIRECTORY_SEPARATOR . '*.json');
 }
-=======
-function loadGame(string $sFilename = SAVE_DEFAULT_NAME.'json'): array
-{
-    $sJsonPlayer;
-}
->>>>>>> f2c63e0e0f382bdab0454e1fee16f2cdf9f2858f

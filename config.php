@@ -36,12 +36,6 @@ const HEALING=4;
 const SAVE=5;
 const EXIT_GAME=6;
 
-<<<<<<< HEAD
 const SAVE_DIR='saves';
 const SAVE_DEFAULT_NAME='game.json';
 const VALID_CARAC='#^[a-zA-Z0-9._éàèùç]*$#';
-=======
-const SAVE_DEFAULT_NAME='game';
-
-const VALID_CARAC_SAVE_NAME='#^[a-zA-Z0-9-_éàèùç]*$#';
->>>>>>> f2c63e0e0f382bdab0454e1fee16f2cdf9f2858f

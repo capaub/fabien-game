@@ -12,7 +12,13 @@ echo ' '.LOAD_GAME.' => Load game'.PHP_EOL;
 echo PHP_EOL;
 
 $aPlayers=[];
+<<<<<<< HEAD
 //$sDate=date('Ymd_gi');
+=======
+$sDate=date('Ymd_gi');
+
+//echo $sDate;
+>>>>>>> f2c63e0e0f382bdab0454e1fee16f2cdf9f2858f
 
 switch (readline('What do you want to do ? ')) {
     case 1:
@@ -81,6 +87,7 @@ echo ' '.(DISPLAY_PLAYERS-2).' => Display players'.PHP_EOL.
 echo PHP_EOL;
 echo 'What do you want to do ? ';
 
+<<<<<<< HEAD
 
 //do {
     switch (readline()) {
@@ -122,3 +129,40 @@ echo 'What do you want to do ? ';
 //} while (EXIT_GAME - 2);
 
 //echo '== End =='.PHP_EOL;
+=======
+switch (readline('What do you want to do ? ')) {
+    case (LOAD_GAME-1):
+        echo PHP_EOL;
+        echo PHP_EOL;
+        echo 'Loading ... ';
+        break;
+    case (SAVE_GAME-1):
+        echo PHP_EOL;
+        do{
+        $sName=readline('Save Name : ');
+        $bIsValid=preg_match(VALID_CARAC_SAVE_NAME, $sName);
+            if(!$bIsValid){
+                echo PHP_EOL;
+                echo 'Caractère invalide'.PHP_EOL;
+                echo PHP_EOL;
+            }
+        }while (!$bIsValid);
+        saveGame($aPlayers, $sName);
+        echo PHP_EOL;
+        echo '== End ==';
+        break;
+    case (SAVE_LOAD_GAME-1):
+        echo PHP_EOL;
+        echo PHP_EOL;
+        echo 'Loading ... ';
+        break;
+    case (EXIT_GAME-1):
+        echo PHP_EOL;
+        echo PHP_EOL;
+        echo '== End ==';
+        break;
+    default:
+        echo ' Incorrect value !'. PHP_EOL;
+        die;
+}
+>>>>>>> f2c63e0e0f382bdab0454e1fee16f2cdf9f2858f

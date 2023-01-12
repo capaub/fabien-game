@@ -31,8 +31,11 @@ const TYPE_CONF = [
 
 const NEW_GAME=1;
 const LOAD_GAME=2;
-const SAVE_GAME=3;
-const SAVE_LOAD_GAME=4;
-const EXIT_GAME=5;
+const DISPLAY_PLAYERS=3;
+const HEALING=4;
+const SAVE=5;
+const EXIT_GAME=6;
 
-const  SAVE_DEFAULT_NAME="$aPlayers[0].json";
+const SAVE_DIR='saves';
+const SAVE_DEFAULT_NAME='game.json';
+const VALID_CARAC='#^[a-zA-Z0-9._éàèùç]*$#';

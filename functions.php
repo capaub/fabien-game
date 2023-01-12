@@ -22,8 +22,8 @@ function createPlayer(string $sUsername, int $iTypeOfPlayer): array
  */
 function displayPlayers(array $players): void
 {
-    foreach ($players as $iKey => $aPlayer) {
-        $iType = $aPlayer['type'];
+    foreach ($players as $iKey => $player) {
+        $iType = $player['type'];
         $aTypeConf = TYPE_CONF[$iType];
         $sType = $aTypeConf['name'];
 
@@ -33,10 +33,22 @@ function displayPlayers(array $players): void
             'Name : %s ' . PHP_EOL .
             'Type : %s ' . PHP_EOL .
             'Heath : %s' . PHP_EOL,
-            $aPlayer['username'],
+            $player['username'],
             $sType,
-            $aPlayer['health']
+            $player['health']
         );
+    }
+}
+
+/**
+ * @param array $player
+ * @param int $value
+ * @return void
+ */
+function healing(array &$players, int $value): void
+{
+    foreach ($players as &$player) {
+        $player['health'] += $value;
     }
 }
 
@@ -47,14 +59,30 @@ function displayPlayers(array $players): void
  */
 function saveGame(array $players, string $sFilename = SAVE_DEFAULT_NAME): void
 {
-    file_put_contents($sFilename, json_encode($players));
+    file_put_contents(SAVE_DIR.DIRECTORY_SEPARATOR.$sFilename, json_encode($players));
 }
 
 /**
  * @param string $sFilename
  * @return array
  */
-function loadGame(string $sFilename = 'SAVE_DEFAULT_NAME'): array
+function loadGame(string $sFilename): array
 {
-    $sJsonPlayer;
+    $sFilepath=$sFilename;
+//    if (!file_exists($sFilepath)) {
+  //      return [];
+   // }
+
+    $sContent = file_get_contents($sFilepath);
+
+    return json_decode($sContent, true);
+    //return json_decode(file_get_contents($sFilename), true);
+}
+
+/**
+ * @return array
+ */
+function listGames(): array
+{
+    return glob(SAVE_DIR . DIRECTORY_SEPARATOR . '*.json');
 }
